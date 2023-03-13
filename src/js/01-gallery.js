@@ -1,12 +1,9 @@
 // Add imports above this line
+
 import { galleryItems } from './gallery-items.js';
 import SimpleLightbox from "simplelightbox"
 import "simplelightbox/dist/simple-lightbox.min.css";
-// Change code below this line
 
-console.log(galleryItems);
-
-import { galleryItems } from './gallery-items.js';
 // Change code below this line
 
 console.log(galleryItems);
@@ -28,12 +25,22 @@ function handelGalleryMarkup(items) {
 
 }
 
-var lightbox = new SimpleLightbox (".gallery a", {
-     captionSelector: 'img',
-     captionsData: 'alt',
-     captionPosition: 'bottom',
-     captionDelay: 250,
-     scrollZoom: false,
-    });
+galleryList.insertAdjacentHTML('beforeend', galleryMarkup)
+galleryList.addEventListener('click', handelGalleryClick)
 
+function handelGalleryClick(event) {
+    event.preventDefault()
 
+    if (event.target.nodeName !== 'IMG') {
+        return
+    }
+
+    const modalImg = event.target.dataset.source;
+
+    const modalImgShow = basicLightbox.create(
+        `<img src="${modalImg}" width="800" height="600">`
+    )
+    
+    modalImgShow.show()
+
+}
