@@ -1,7 +1,7 @@
 // Add imports above this line
 
-import { galleryItems } from './gallery-items.js';
-import SimpleLightbox from "simplelightbox"
+import { galleryItems } from './gallery-items';
+import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
 
 // Change code below this line
@@ -15,11 +15,10 @@ const galleryMarkup = handelGalleryMarkup(galleryItems);
 function handelGalleryMarkup(items) {
     return items.map(item => 
         `<div class="gallery__item">
-        <a class="gallery__link" href="${item.original}">
-          <img class="gallery__image" src="${item.preview}" 
-          data-source="${item.original}" alt="${item.alt}">
+        <a class="gallery__item" href="${item.original}">
+        <img class="gallery__image" src="${item.preview}" alt="${item.description}" />
         </a>
-      </div>`
+        </div>`
     )
     .join('');
 
@@ -34,6 +33,14 @@ function handelGalleryClick(event) {
     if (event.target.nodeName !== 'IMG') {
         return
     }
+
+    new SimpleLightbox(".gallery a", {
+     captionSelector: 'img',
+     captionsData: 'alt',
+     captionPosition: 'bottom',
+     captionDelay: 250,
+     scrollZoom: false,
+    });
 
     const modalImg = event.target.dataset.source;
 
